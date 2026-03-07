@@ -90,3 +90,346 @@ const book = {
 console.log("book:", book);
 console.log("typeof book:", typeof book); //! object
 console.log("----------------------------------------------------------------------------------------------------------");
+
+//! Доступ до властивостей
+console.warn("Доступ до властивостей (var.1):");
+//todo: ✴️ ПЕРШИЙ спосіб отримати доступ до властивості об'єкта
+//? - це синтаксис через квадратні дужки: object["key"]
+//? Схоже на звернення до елемента масиву
+//? з різницею у тому, що в дужках вказується не індекс елемента,
+//? а ім'я властивості у вигляді рядка.
+//? ✳️ Синтаксис «квадратних дужок» використовується значно рідше,
+//? у разі, коли ім'я(ключ) властивості заздалегідь невідоме
+//? або зберігається у змінній, наприклад,
+//? як значення імені(ключа) яке зберігається у змінній <propKey>.
+//? ✳️ На місці звернення буде повернуто значення властивості з таким ім'ям.
+//? ✳️ Якщо об'єкт не містить властивості з таким ім'ям,
+//? на місці звернення повернеться undefined.
+const book1 = {
+    title: "The Last Kingdom",
+    author: "Bernard Cornwell",
+    genres: ["historical prose", "adventure"],
+    genres2: genres2,
+    // genres2, //! короткі властивості
+    isPublic: true,
+    rating: 8.38
+};
+
+const bookTitle1 = book1["title"];
+console.log('book1["title"]:', bookTitle1); //! 'The Last Kingdom'
+
+const bookGenres1 = book1['genres'];
+console.log('book1["genres"]:', bookGenres1); //! ['historical prose', 'adventurs']
+
+const bookGenres21 = book1["genres2"];
+console.log('book1["genres2"]:', bookGenres21); //! ['adventure2', 'historical prose2']
+
+const bookPrice1 = book1["price"];
+console.log('book1["price"]:', bookPrice1); //! undefined
+
+//* ✅
+const propKey = "author";
+const bookAuthor1 = book1[propKey];
+console.log("bookAuthor1:", bookAuthor1); //! 'Bernard Cornwell'
+console.log(". . . . . . . . . . . . . . . . . . . . . . . .");
+
+console.warn("Доступ до властивостей (var.2):");
+//todo: ✴️ ДРУГИЙ спосіб отримати доступ до властивості об'єкта
+//? - це синтаксис через крапку: object.key
+//? ✳️ Синтаксис «через крапку» використовується у більшості випадків
+//? і доречний тоді, коли ми заздалегідь знаємо
+//? ім'я(ключ) властивості, до якої хочемо отримати доступ.
+//? ✳️ На місці звернення буде повернуто значення властивості з таким ім'ям.
+//? ✳️ Якщо об'єкт не містить властивості з таким ім'ям, 
+//? на місці звернення повернеться undefined.
+const book2 = {
+    title: "The Last Kingdom",
+    author: "Bernard Cornwell",
+    genres: ["historical prose", "adventure"],
+    genres2: genres2,
+    // genres2, //! короткі властивості
+    isPublic: true,
+    rating: 8.38
+};
+
+const bookTitle2 = book2.title;
+console.log("book2.title:", bookTitle2); //! 'The Last Kingdom'
+
+const bookGenres2 = book2.genres;
+console.log("book2.genres:", bookGenres2); //! ['historical prose', 'adventurs']
+
+const bookGenres22 = book2.genres2;
+console.log("book2.genres2:", bookGenres22); //! ['adventure2', 'historical prose2']
+
+const bookPrice2 = book2.price;
+console.log("book2.price:", bookPrice2); //! undefined
+
+//! ❌
+const propKey2 = "author";
+const bookAuthor2 = book2.propKey2;
+console.log("book2.propKey2:", bookAuthor2); //! undefined
+console.log(". . . . . . . . . . . . . . . . . . . . . . . .");
+
+//! Звернення (доступ) до вкладених властивостей
+console.warn("Звернення (доступ) до вкладених властивостей:");
+//? ✴️ Для доступу до вкладених властивостей
+//? використовується ланцюжок звернень «через крапку».
+//? ✳️ Якщо значення властивості - це масив,
+//? у нашому отанньомуприкладі це [genres2],
+//? тоді book2.genres2 - звернення до цього масиву.
+//? Далі можна отримати доступ до його елементів
+//? через квадратні дужки та індекс.
+const bookGenres2Item0 = book2.genres2[0];
+console.log("book2.genres2[0]:", bookGenres2Item0); //! 'adventure2'
+
+const bookGenresItem1 = book2.genres[1];
+console.log("book2.genres[1]:", bookGenresItem1); //! 'adventure'
+console.log("----------------------------------------------------------------------------------------------------------");
+
+//! Видалення властивостей
+console.warn("Видалення властивостей:");
+//? ✴️ Видалити властивість об'єкта можна за допомогою оператора delete.
+//? ✳️ Видалення властивостей — операція вкрай рідкісна,
+//? найчастіше властивості тільки змінюються або додаються.
+const book3 = {
+    title: "The Last Kingdom",
+    author: "Bernard Cornwell",
+    genres: ["historical prose", "adventure"],
+    genres2: genres2,
+    // genres2, //! короткі властивості
+    isPublic: true,
+    rating: 8.38
+};
+
+delete book3.genres2
+console.log("book3:", book3); 
+console.log("----------------------------------------------------------------------------------------------------------");
+
+//! Створення (додавання) властивостей
+console.warn("Створення (додавання ) властивостей:");
+//? ✴️ Операція додавання нової властивості
+//? після створення об'єкта нічим не відрізняється
+//? від зміни значення вже існуючої властивості.
+//? ✳️ Якщо під час запису значення за ім'ям,
+//? така властивість в об'єкті відсутня,
+//? вона буде створена.
+
+const book5 = {
+    title: "The Last Kingdom",
+    author: "Bernard Cornwell",
+    genres: ["historical prose", "adventure"],
+    genres2: genres2,
+    // genres2, //! короткі властивості
+    isPublic: true,
+    rating: 8.38
+};
+
+book5.pageCount = 836;
+book5.originalLanguage = "en";
+book5.translations = ["ua", "ru"];
+book5.author = "Bernard Cornwell2"
+console.log("book5:", book5);
+console.log("----------------------------------------------------------------------------------------------------------");
+
+//! Обчислювані властивості
+console.warn("Обчислювані властивості:");
+//? ✴️ Бувають ситуації, коли під час оголошення об'єкта
+//? необхідно додати властивість з ім'ям,
+//? яке ми заздалегідь не знаємо,
+//? тому що воно зберігається у якості значення змінної
+//? або у якості результату виконання функції.
+//? ✳️ Раніше для цього необхідно було спочатку створити об'єкт,
+//? а потім додавати властивості через квадратні дужки,
+//? що не зовсім зручно.
+const keyName1 = "name1";
+
+const user1 = {
+    age1: 60,
+};
+
+user1[keyName1] = "Juliette Binoche";
+console.log("user1[keyName1]:", user1[keyName1]); //! 'Juliette Binoche'
+console.log("user1.keyName1:", user1.keyName1); //! undefined
+console.log("user1.name1:", user1.name1); //! 'Juliette Binoche'
+
+console.log("user1:", user1); //! {age1: 60, name1: 'Juliette Binoche'}
+console.log(". . . . . . . . . . . . . . . . . . . . . . . .");
+
+
+//? ✴️ Синтаксис обчислювальних властивостей (computed properties)
+//? допомагає уникнути зайвого коду і, в деяких випадках, спростити його.
+//? Значенням обчислювальної властивості може бути будь-який валідний вираз.
+const keyName2 = "name2";
+
+const user2 = {
+    age2: 60,
+    //todo: Ім'я цієї властивості(ключ) буде взяте зі значення змінної keyName2
+    [keyName2]: "Russell Crowe",
+};
+
+console.log("user2.name2:", user2.name2); //! 'Russell Crowe'
+console.log("user2:", user2); //! {age2: 60, name2: 'Russell Crowe'}
+console.log("----------------------------------------------------------------------------------------------------------");
+
+//! Короткі властивості
+console.warn("Короткі властивості:");
+//? ✴️ Іноді, під час створення об'єкта значення властивості
+//? необхідно взяти зі змінної або параметра функції
+//? з таким самим ім'ям, що і у властивості.
+//? ✳️ Синтаксис у наступному прикладі занадто громіздкий,
+//? тому що доводиться дублювати ім'я властивості та ім'я змінної,
+//? в якій зберігається потрібне значення.
+const name3 = "Anthony Hopkins";
+const age3 = 87;
+
+const user3 = {
+    name3: name3,
+    age3: age3,
+};
+
+console.log("user3.name3:", user3.name3); //! 'Anthony Hopkins'
+console.log("user3.age3:", user3.age3); //! 87
+console.log("user3:", user3); //! {name3: 'Anthony Hopkins', age3: 87}
+console.log(". . . . . . . . . . . . . . . . . . . . . . . .");
+
+
+//? ✴️ Синтаксис коротких властивостей (shorthand properties)
+//? вирішує цю проблему, дозволяючи використовувати
+//? ім'я змінної у якості імені властивості,
+//? а її значення - у якості значення властивості.
+const name4 = "Uma Thurman";
+const age4 = 54;
+
+const user4 = {
+    name4,
+    age4,
+};
+
+console.log("user4.name4:", user4.name4); //! 'Uma Thurman'
+console.log("user4.age4:", user4.age4); //! 54
+console.log("user4:", user4); //! {name4: 'Uma Thurman', age4: 54}
+console.log("----------------------------------------------------------------------------------------------------------");
+
+//? 🚫⁉️ Наприклад, можна було оголосити
+//? змінну <books> і дві функції getBooks() і addBook(bookName),
+//? але тоді це були б три незалежні сутності
+//? без явного синтаксичного, і зі слабким логічним зв'язком.
+//todo:  ❌ Слабкопозв'язані, незалежні сутності:
+const books2 = ["The Last Kingdom-2", "Dream Guardian-2"];
+
+function getBooks() {
+    console.log("🚫 Цей метод буде повертати всі книги - властивість books2");
+    console.log("🚫 books2:", books2);
+};
+
+function addBook(bookName) {
+    console.log(`🚫 Цей метод буде додавати ${bookName} у властивість(масив) books2`);
+};
+
+//todo: 🚫 Виклики незалежних методів:
+getBooks(); //! 'Цей метод буде повертати всі книги - властивість books'
+addBook("НОВА КНИГА-2"); //! 'Цей метод буде додавати НОВА КНИГА у властивість(масив) books2'
+console.log("---------------------------------------------------------------------");
+
+// function abc(a, b) {
+//     return a * b;
+// };
+
+// let abc = (a, b) => {a * b}; 
+
+// let a = 
+// function abc(a, b) {
+//     return a * b;
+// };
+
+//! Методи об'єкта
+//? ✴️ Об'єкти можуть зберігати не тільки дані,
+//? але і функції для роботи з цими даними - методи.
+//? Якщо значення властивості - це функція,
+//? така властивість називається методом об'єкта.
+//? ✳️ Такі об'єкти можна назвати «моделями».
+//? Вони пов'язують дані і методи для роботи з цими даними. 
+//todo: ✅ Логічно і синтаксично згруповані сутності в об'єкті:
+// const bookShelf = {
+//     books: ["The Last Kingdom", "Dream Guardian"],
+     // //todo: Це метод-1 об'єкта (⛔️ var.1 - ES5):
+     // getBooks: function() {
+     //     console.log("⛔️ Цей метод буде повертати всі книги - властивість books");
+     // },
+//     //todo: Це метод-1 об'єкта (✅ var.2 - ES6):
+//     getBooks() {
+//         console.log("✅ Цей метод буде повертати всі книги - властивість books");
+//         console.log("✅ books:", bookShelf.books);
+//     },
+//     //todo: Це метод-2 об'єкта:
+//     addBook(bookName) {
+//         console.log(`✅ Цей метод буде додавати ${bookName} у властивість(масив) books`);
+//     },
+// };
+
+// const bookShelf1 = {
+//     books: ["The Last Kingdom", "Dream Guardian"],
+// }
+
+// bookShelf1.getBooks();
+
+//todo: ✅ Виклики методів об'єкта:
+// bookShelf.getBooks(); //! 'Цей метод буде повертати всі книги - властивість books'
+// bookShelf.addBook("НОВА КНИГА"); //! 'Цей метод буде додавати НОВА КНИГА у властивість(масив) books'
+console.log(". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .");
+
+//! Доступ до властивостей об'єкта в методах через this
+//? ✳️ Методи використовуються для роботи
+//? з властивостями об'єкта, їх зміни.
+//? ✴️ Для доступу до об'єкта в методі використовується
+//? не ім'я змінної, наприклад bookShelf,
+//? а ключове слово this - контекст.
+//? ✴️ Значенням this буде об'єкт перед «крапкою»,
+//? тобто об'єкт, який викликав цей метод,
+//? у нашому випадку - це посилання на об'єкт bookShelf.
+const bookShelfNew = {
+    books: ["The Last Kingdom"],
+    getBooks() {
+        console.log("🛑 books:", bookShelfNew.books); //todo: 🛑 var.1
+        
+        console.log(this);
+        console.log("✅ books:", this.books); //todo: ✅ var.2
+    },
+};
+
+//todo: У this.books перед крапкою знаходиться об'єкт bookShelfNew,
+//todo: тому, викликаючи метод, this буде зберігати посилання на нього.
+bookShelfNew.getBooks(); //! {books: Array(1), getBooks: ƒ}
+console.log(". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .");
+
+
+// console.warn("Схема доступу до властивостей об'єкта в методах через this: \n https://ruslan379.github.io/course-fe-html-css/lesson-FE3_11/images/this-keyword.jpg");
+// console.warn("Схема доступу до властивостей об'єкта в методах через this: \n http://127.0.0.1:5500/lesson-FE3_11/images/this-keyword.jpg");
+console.warn(`Схема доступу до властивостей об'єкта в методах через this: \n ${((window.location.href).split('/')).slice(0, -2).join('/') + '/'}${"lesson-FE3_11/images/this-keyword.jpg"}`);
+//? ✴️ Для того, щоб отримати доступ 
+//? до властивостей об'єкта в методах, 
+//? ми звертаємось до нього через this і далі,
+//? стандартно - «через крапку» до властивостей:
+const bookShelf = {
+    books: ["The Last Kingdom"],
+    getBooks() {
+        return this.books;
+    },
+    addBook(bookName) {
+        this.books.push(bookName);
+    },
+    removeBook(bookName) {
+        const bookIndex = this.books.indexOf(bookName);
+        this.books.splice(bookIndex, 1);
+    },
+};
+
+console.log("books_before:", bookShelf.getBooks()); //! ['The Last Kingdom']
+
+bookShelf.addBook("The Mist");
+bookShelf.addBook("Dream Guardian");
+console.log("books_add:", bookShelf.getBooks()); //! ['The Last Kingdom', 'The Mist', 'Dream Guardian']
+
+bookShelf.removeBook("The Mist");
+console.log("books_remove:", bookShelf.getBooks()); //! ['The Last Kingdom', 'Dream Guardian']
+console.log("---------------------------------------------------------------------");

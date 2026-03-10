@@ -28,24 +28,39 @@ let bankAccount = {
     balance: 100,
 
     showbalance() {
-        alert(this.balance);
-        console.log(this.balance);
+        alert(`Ваш поточний баланс: ${this.balance} грн`);
+        console.log(`Баланс: ${this.balance}`);
     },
 
     deposit() {
-        let deposit = Number(prompt());
-        this.balance += deposit;
+        let input = prompt("Завдання 1. Скільки грошей покласти на рахунок?");
+        let amount = Number(input);
+
+        if (input === null || input.trim() === "" || isNaN(amount) || amount <= 0) {
+            alert("Помилка: введіть коректну суму більше нуля!");
+            return;
+        }
+
+        this.balance += amount;
         this.showbalance();
     },
 
     withdraw() {
-        let withdraw = Number(prompt());
-        if (this.balance >= withdraw) {
-            this.balance -= withdraw;
+        let input = prompt("Завдання 1. Скільки грошей взяти з рахунку?");
+        let amount = Number(input);
+
+        if (input === null || input.trim() === "" || isNaN(amount) || amount <= 0) {
+            alert("Помилка: введіть коректну суму для зняття!");
+            return;
+        }
+
+        if (this.balance >= amount) {
+            this.balance -= amount;
             this.showbalance();
         } else {
-            console.log("⛔️ Не достатньо коштів на вашому рахунку!");
-        };
+            alert("⛔️ Недостатньо коштів на вашому рахунку!");
+            console.log("⛔️ Спроба зняти більше, ніж є на балансі.");
+        }
     }
 };
 
@@ -75,15 +90,26 @@ let weather = {
     windSpeed: 10,
 
     updateTemp() {
-        this.temperature = Number(prompt());
+        let input = prompt("Завдання 2. Введіть температуру");
+        let newTemp = Number(input);
+
+        if (input === null || input.trim() === "" || isNaN(newTemp)) {
+            alert("Помилка: введіть коректне число!");
+            console.error("Некоректний ввід температури");
+            return null; 
+        }
+
+        this.temperature = newTemp;
+
         if (this.temperature < 0) {
             alert("Температура нижче 0 градусів Цельсія");
             console.log("Температура нижче 0 градусів Цельсія");
             return true;
+        } else {
+            alert("Температура вище або дорівнює 0 градусів Цельсія");
+            console.log("Температура вище або дорівнює 0 градусів Цельсія");
+            return false;
         }
-        alert("Температура нижче 0 градусів Цельсія");
-        console.log("Температура вище 0 градусів Цельсія");
-        return false;
     }
 }
 
@@ -117,24 +143,35 @@ let user = {
     password: "12345",
 
     login() {
-        this.name = prompt("Name:");
-        if (this.name.length < 3) {
-            console.log("Ім'я має мати більше 3 символів");
+        let inputName = prompt("Name:");
+        if (inputName === null || inputName.trim().length < 3) {
+            alert("Помилка: Ім'я має мати не менше 3 символів.");
+            console.error("Некоректне ім'я");
             return;
         }
-        this.email = prompt("Email:");
-        const atIndex = this.email.indexOf("@");
-        const dotIndex = this.email.lastIndexOf(".");
-        const isValid = atIndex > 0 && dotIndex > atIndex + 1 && dotIndex < this.email.length - 1;
-        if (!isValid) {
-            console.log("Електронна пошта має містити символ @ та крапку після неї");
+        this.name = inputName.trim();
+
+        let inputEmail = prompt("Email:");
+        if (inputEmail === null) return; 
+
+        const atIndex = inputEmail.indexOf("@");
+        const dotIndex = inputEmail.lastIndexOf(".");
+        const isValidEmail = atIndex > 0 && dotIndex > atIndex + 1 && dotIndex < inputEmail.length - 1;
+
+        if (!isValidEmail) {
+            alert("Електронна пошта має містити символ @ та крапку після неї.");
+            console.error("Некоректний Email");
             return;
         }
-        this.password = prompt("Password:");
-        if (this.password.length < 6) {
-            console.log("Пароль має містити не менше 6 символів");
+        this.email = inputEmail.trim();
+        let inputPassword = prompt("Password:");
+        if (inputPassword === null || inputPassword.length < 6) {
+            alert("Пароль має містити не менше 6 символів.");
+            console.error("Занадто короткий пароль");
             return;
         }
+        this.password = inputPassword;
+        console.log("Дані успішно оновлено:");
         console.log(`Name: ${this.name}`);
         console.log(`Email: ${this.email}`);
         console.log(`Password: ${this.password}`);

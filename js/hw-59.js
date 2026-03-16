@@ -15,6 +15,11 @@ const user = {
 };
 //! Код виконаного завдання
 
+user.mood = 'happy';
+user.hobby = 'skydiving';
+user.premium = false;
+console.log(user);
+
 console.log("--------------------------------------------------");
 
 
@@ -29,6 +34,12 @@ console.log(
 //! Код виконаного завдання
 const countProps = function (obj) {
     //! твій код
+    if (typeof obj != "object" || obj === null) {
+        return "Передан не об'єкт";
+    } else if (Array.isArray(obj)) {
+        return "Передан масив";
+    }
+    return Object.keys(obj).length;
 };
 //! Викличи функції для перевірки працездатності твоєї реалізації.
 console.log(countProps({})); //! 0
@@ -49,6 +60,16 @@ console.log(
 //! Код виконаного завдання
 const findBestEmployee = function (employees) {
     //! твій код
+    if (typeof employees != "object" || employees === null) {
+        return "Передан не об'єкт";
+    } else if (Array.isArray(employees)) {
+        return "Передан масив";
+    }
+    let bestEmployee = Math.max(...Object.values(employees));
+    if (Object.keys(employees).length === 0) {
+        return "Передан пустий об'єкт";
+    }
+    return Object.keys(employees).find(k => employees[k] === bestEmployee);
 };
 
 //! Викличи функції для перевірки працездатності твоєї реалізації.
@@ -77,6 +98,18 @@ console.log(
         chelsy: 38,
     }),
 ); //! lux
+
+console.log(
+    findBestEmployee({}),
+);
+
+console.log(
+    findBestEmployee(12),
+);
+
+console.log(
+    findBestEmployee([38]),
+);
 console.log("--------------------------------------------------");
 
 
@@ -91,6 +124,16 @@ console.log(
 //! Код виконаного завдання
 const countTotalSalary = function (employees) {
     //! твій код
+    if (typeof employees != "object" || employees === null) {
+        return "Передан не об'єкт";
+    } else if (Array.isArray(employees)) {
+        return "Передан масив";
+    }
+    let total = 0;
+    for (const value of Object.values(employees)) {
+        total += value;
+    };
+    return total;
 };
 
 //! Викличи функції для перевірки працездатності твоєї реалізації.
@@ -133,6 +176,18 @@ const products = [
 
 const getAllPropValues = function (arr, prop) {
     //! твій код
+    if (!Array.isArray(arr)) {
+        return "Передан не масив";
+    } else if (typeof prop != "string" || prop === "") {
+        return "Другий аргумент має бути не пустою строкою";
+    };
+    let found = [];
+    for (let i = 0; i < arr.length; i++) {
+        if (prop in arr[i]) {
+            found.push(arr[i][prop]);
+        };
+    };
+    return found;
 };
 
 //! Викличи функції для перевірки працездатності твоєї реалізації.
@@ -153,11 +208,37 @@ console.log(
 //! Код виконаного завдання
 const calculateTotalPrice = function (allProdcuts, productName) {
     //! твій код
+    if (!Array.isArray(allProdcuts)) {
+        console.error("Помилка: Перший аргумент має бути масивом.");
+        return 0;
+    }
+
+    if (typeof productName !== 'string') {
+        console.error("Помилка: Ім'я продукту має бути рядком.");
+        return 0;
+    }
+
+    for (const product of allProdcuts) {
+        if (product.name === productName) {
+            const { price, quantity } = product;
+            if (typeof price !== 'number' || typeof quantity !== 'number') {
+                console.warn(`Увага: Некоректні дані для продукту "${productName}"`);
+                return 0;
+            }
+
+            return price * quantity;
+        }
+    }
+    console.log(`Продукт "${productName}" не знайдено у списку.`);
+    return 0;
 };
 
 //! Викличи функції для перевірки працездатності твоєї реалізації.
 console.log(calculateTotalPrice(products, 'Радар')); //! 5200
 console.log(calculateTotalPrice(products, 'Дроїд')); //! 2800
+console.log(calculateTotalPrice(null, 'Радар'));
+console.log(calculateTotalPrice(products, 123));
+console.log(calculateTotalPrice(products, 'Яблуко'));
 console.log("--------------------------------------------------");
 
 
@@ -171,5 +252,99 @@ console.log(
 //? Є об'єкт account в якому необхідно реалізувати методи 
 //? для роботи з балансом та історією транзакцій.
 //! Код виконаного завдання
+let bankAccountTemplate = {
+    ownername: "",
+    accountNumberTemplate: 0,
+    balance: 0,
+    history: [],
+
+    showbalance() {
+        alert(`Ваш поточний баланс: ${this.balance} грн`);
+        console.log(`Баланс: ${this.balance}`);
+    },
+
+    deposit() {
+        let input = prompt("Завдання 7. Скільки грошей покласти на рахунок?");
+        let amount = Number(input);
+
+        if (input === null || input.trim() === "" || isNaN(amount) || amount <= 0) {
+            alert("Помилка: введіть коректну суму більше нуля!");
+            return;
+        }
+
+        this.balance += amount;
+        this.showbalance();
+
+        this.updateHistory("+", amount);
+    },
+
+    withdraw() {
+        let input = prompt("Завдання 7. Скільки грошей взяти з рахунку?");
+        let amount = Number(input);
+
+        if (input === null || input.trim() === "" || isNaN(amount) || amount <= 0) {
+            alert("Помилка: введіть коректну суму для зняття!");
+            return;
+        }
+
+        if (this.balance >= amount) {
+            this.balance -= amount;
+            this.showbalance();
+        } else {
+            alert("⛔️ Недостатньо коштів на вашому рахунку!");
+            console.log("⛔️ Спроба зняти більше, ніж є на балансі.");
+        }
+
+        this.updateHistory("-", amount);
+    },
+
+    updateHistory(whatWas, money) {
+        let operation = String(whatWas) + String(money);
+        this.history.push(operation);
+    },
+
+    showHistory() {
+        alert(`Історія: ${this.history}`);
+        console.log(this.history);
+    }
+};
+
+function createAccount(template) {
+    const name = String(prompt("Створення аккаунту. Введіть ім'я:"));
+    template.accountNumberTemplate++; 
+
+    const target = {
+        ownername: name,
+        accountNumber: template.accountNumberTemplate,
+        balance: 0,
+        history: []
+    };
+
+    Object.setPrototypeOf(target, template);
+
+    return new Proxy(target, {
+        get(obj, prop) {
+            if (prop === 'accountNumberTemplate') {
+                console.warn("Доступ до шаблону номеру аккаунту обмежений");
+                return undefined;
+            }
+            return obj[prop];
+        },
+        set(obj, prop, value) {
+            if (prop === 'accountNumber') {
+                console.error("Не можна змінювати номер аккаунту");
+                return false;
+            }
+            obj[prop] = value;
+            return true;
+        }
+    });
+};
+
+const myAcc = createAccount(bankAccountTemplate);
+myAcc.deposit();
+myAcc.withdraw();
+myAcc.showHistory();
+console.log(myAcc.accountNumberTemplate);
 
 console.log("--------------------------------------------------");

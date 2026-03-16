@@ -253,10 +253,7 @@ console.log(
 //? для роботи з балансом та історією транзакцій.
 //! Код виконаного завдання
 let bankAccountTemplate = {
-    ownername: "",
     accountNumberTemplate: 0,
-    balance: 0,
-    history: [],
 
     showbalance() {
         alert(`Ваш поточний баланс: ${this.balance} грн`);
@@ -264,13 +261,18 @@ let bankAccountTemplate = {
     },
 
     deposit() {
-        let input = prompt("Завдання 7. Скільки грошей покласти на рахунок?");
-        let amount = Number(input);
+        let input;
+        let amount;
 
-        if (input === null || input.trim() === "" || isNaN(amount) || amount <= 0) {
-            alert("Помилка: введіть коректну суму більше нуля!");
-            return;
-        }
+        do {
+            input = prompt("Скільки грошей покласти на рахунок?");
+            if (input === null) return;
+            amount = Number(input);
+
+            if (isNaN(amount) || amount <= 0 || input.trim() === "") {
+                alert("Помилка: введіть коректне число більше нуля!");
+            }
+        } while (isNaN(amount) || amount <= 0 || input.trim() === "");
 
         this.balance += amount;
         this.showbalance();
@@ -279,21 +281,21 @@ let bankAccountTemplate = {
     },
 
     withdraw() {
-        let input = prompt("Завдання 7. Скільки грошей взяти з рахунку?");
-        let amount = Number(input);
+        let amount;
+        let input;
 
-        if (input === null || input.trim() === "" || isNaN(amount) || amount <= 0) {
-            alert("Помилка: введіть коректну суму для зняття!");
-            return;
-        }
+        do {
+            input = prompt("Скільки грошей взяти з рахунку?");
+            if (input === null) return;
+            amount = Number(input);
 
-        if (this.balance >= amount) {
-            this.balance -= amount;
-            this.showbalance();
-        } else {
-            alert("⛔️ Недостатньо коштів на вашому рахунку!");
-            console.log("⛔️ Спроба зняти більше, ніж є на балансі.");
-        }
+            if (isNaN(amount) || amount <= 0 || input.trim() === "") {
+                alert("Помилка: введіть коректну суму!");
+            } else if (this.balance < amount) {
+                alert("⛔️ Недостатньо коштів! Ваш баланс: " + this.balance);
+                return;
+            }
+        } while (isNaN(amount) || amount <= 0 || input.trim() === "");
 
         this.updateHistory("-", amount);
     },
@@ -304,13 +306,24 @@ let bankAccountTemplate = {
     },
 
     showHistory() {
+        if (this.history.length === 0) {
+            alert("Дій ще не було");
+            return;
+        }
         alert(`Історія: ${this.history}`);
         console.log(this.history);
     }
 };
 
 function createAccount(template) {
-    const name = String(prompt("Створення аккаунту. Введіть ім'я:"));
+    let name;
+    do {
+        name = prompt("Створення аккаунту. Введіть ім'я власника:");
+        if (name === null) name = "Анонім";
+        if (name.trim().length < 2) {
+            alert("Помилка: ім'я має бути не коротшим за 2 символи!");
+        }
+    } while (name.trim().length < 2);
     template.accountNumberTemplate++; 
 
     const target = {
@@ -346,5 +359,7 @@ myAcc.deposit();
 myAcc.withdraw();
 myAcc.showHistory();
 console.log(myAcc.accountNumberTemplate);
+console.log(myAcc.accountNumber = 21);
+console.log(myAcc.accountNumber);
 
 console.log("--------------------------------------------------");

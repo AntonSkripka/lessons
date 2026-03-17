@@ -15,9 +15,12 @@ const user = {
 };
 //! Код виконаного завдання
 
-user.mood = 'happy';
-user.hobby = 'skydiving';
-user.premium = false;
+Object.assign(user, {
+    mood: 'happy',
+    hobby: 'skydiving',
+    premium: 'false',
+});
+
 console.log(user);
 
 console.log("--------------------------------------------------");
@@ -324,7 +327,7 @@ function createAccount(template) {
             alert("Помилка: ім'я має бути не коротшим за 2 символи!");
         }
     } while (name.trim().length < 2);
-    template.accountNumberTemplate++; 
+    template.accountNumberTemplate++;
 
     const target = {
         ownername: name,

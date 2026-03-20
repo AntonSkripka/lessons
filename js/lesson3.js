@@ -254,3 +254,159 @@ console.log("hotelName(= name):", hotelName); //! // 'Resort Hotel'
 console.log("restRemainingObjectProperties:", restRemainingObjectProperties); //! {stars: 5, capacity: 100}
 console.log("----------------------------------------------------------------------------------------------------------------------");
 
+//! Деструкткризація масивів
+console.warn("Деструкткризація масивів:");
+//? ✴️ Деструктуризоване присвоювання можна використовувати
+//? і для масивів, але з деякими особливостями.
+//? ❗️➖ Замість фігурних дужок {} використовуються квадратні [].
+//? ❗️➖ Змінним, зазначеним у квадратних дужках [],
+//?      будуть послідовно присвоюватися значення елементів масиву.
+//? ✳️ Після ключового слова const або let ставимо
+//? квадратні дужки, як і у випадку з оголошенням масиву.
+//? Всередині дужок, через кому, вказуємо імена змінних,
+//? в які будуть поміщені значення масиву.
+//? ✳️ Внаслідок такого запису будуть створені 3 змінні, 
+//? і в них будуть поміщені елементи в нумерованому порядку
+//?  - від 0 і до кінця масиву.
+const rgb1 = [200, 255, 100];
+console.log("rgb1:", rgb1);
+console.log("`  `  `  `  `  `  `  `  `  `");
+
+const [red1, green1, blue1] = rgb1;
+
+console.log(`Red1:${red1}, Green1:${green1}, Blue1:${blue1}`); //! 'Red1:200, Green1:255, Blue1:100'
+console.log(". . . . . . . . . . . . . . . . . . . . . . . . . .");
+
+//! Присвоєння значення змінної після її оголошення
+console.warn("Присвоєння значення змінної після її оголошення:");
+//? ✴️ Під час деструктуризації масивів,
+//? значення змінної може присвоюватися після її оголошення.
+//? На практиці це рідко використовується.
+const rgb2 = [128, 100, 255];
+console.log("rgb2:", rgb2);
+console.log("`  `  `  `  `  `  `  `  `  `");
+
+let red2, green2, blue2;
+
+[red2, green2, blue2] = rgb2;
+
+console.log(`Red2:${red2}, Green2:${green2}, Blue2:${blue2}`); //! 'Red2:128, Green2:100, Blue2:255'
+console.log(". . . . . . . . . . . . . . . . . . . . . . . . . .");
+
+//! Значення за замовчуванням
+console.warn("Значення за замовчуванням:");
+//? ✴️ Якщо змінних більше, ніж елементів масиву,
+//? їм буде присвоєно undefined,
+//? тому можна вказувати значення за замовчуванням.
+const rgb3 = [100, 128, 200];
+console.log("rgb3:", rgb3);
+console.log("`  `  `  `  `  `  `  `  `  `");
+
+const [red3, green3, blue3, alfa3 = 0.3] = rgb3;
+
+console.log(`Red3:${red3}, Green3:${green3}, Blue3:${blue3}, Alfa3:${alfa3}`); //! 'Red3:100, Green3:128, Blue3:200, Alfa3:0.3'
+console.log(". . . . . . . . . . . . . . . . . . . . . . . . . .");
+
+//! Часткова деструктуризація
+console.warn("Часткова деструктуризація:");
+//? ✴️ Іноді з масиву необхідно деструктуризувати тільки перші N елементів,
+//? а інші зберегти в одну змінну у вигляді масиву.
+//? Деструктуруючи масив, можна розпакувати і присвоїти
+//? іншу частину елементів масиву змінної, використовуючи операцію ... (rest).
+const rgb4 = [150, 220, 50];
+console.log("rgb4:", rgb4);
+console.log("`  `  `  `  `  `  `  `  `  `");
+
+const [red4, ...restOthercColors4] = rgb4;
+
+console.log("red4:", red4); //! 150
+console.log("restOthercColors4:", restOthercColors4); //! [220, 50]
+console.log(". . . . . . . . . . . . . . . . . . . . . . . . . .");
+
+//! Пропуск елементів
+console.warn("Пропуск елементів:");
+const rgb5 = [11, 112, 213];
+console.log("rgb5:", rgb5);
+console.log("`  `  `  `  `  `  `  `  `  `");
+
+const [, , blue5] = rgb5;
+
+console.log(`Blue5: ${blue5}`); //! 'Blue5: 213'
+console.log("---------------------------------------------------");
+
+//! Патерн «Об'єкт параметрів»
+//? ✴️ Якщо функція приймає більше двох-трьох аргументів,
+//? дуже просто заплутатись, в якій послідовності і що передавати.
+//? В результаті виходить дуже неочевидний код в місці її виклику.
+function doStuffWithBook1(title, numberOfPages, downloads, rating, isPublic) {
+    //todo: Робимо щось з параметрами:
+    console.log("title:", title);
+    console.log("numberOfPages:", numberOfPages);
+    console.log("downloads:", downloads);
+    console.log("rating:", rating);
+    console.log("isPublic:", isPublic);
+};
+
+//? ❓❓❓ Що таке The Last Kingdom? Що таке 736? Що таке 10283? Що таке 8.38? Що таке true?
+doStuffWithBook1("The Last Kingdom", 736, 10283, 8.38, true);
+console.log(". . . . . . . . . . . . . . . . .");
+
+//? ✳️ Патерн «Об'єкт параметрів» допомагає вирішити цю проблему,
+//? замінюючи набір параметрів всього одним об'єктом з іменованими властивостями.
+const book3 = {
+    title: "The Last Kingdom",
+    numberOfPages: 736,
+    downloads: 10283,
+    rating: 8.38,
+    isPublic: true,
+};
+console.log("book:", book3);
+console.log("`  `  `  `  `  `  `  `  `  `  `  `");
+
+function doStuffWithBook2(bookObj) {
+    //todo: // Робимо щось з властивостями об'єкта:
+    console.log("bookObj.title:", bookObj.title);
+    console.log("bookObj.numberOfPages:", bookObj.numberOfPages);
+    console.log("bookObj.downloads:", bookObj.downloads);
+    console.log("bookObj.rating:", bookObj.rating);
+    console.log("bookObj.isPublic:", bookObj.isPublic);
+};
+
+doStuffWithBook2(book3);
+console.log(". . . . . . . . . . . . . . . . .");
+
+//? ✳️ Ще один плюс у тому, 
+//? що можна деструктуризувати об'єкт в параметрі book. 
+//? Це можна зробити в тілі функції.
+function doStuffWithBook3(bookObj) {
+    const { title, numberOfPages, downloads, rating, isPublic } = bookObj;
+    //todo: Робимо щось вже з значеннями, деструктуризуваними з об'єкта:
+    console.log("title:", title);
+    console.log("numberOfPages:", numberOfPages);
+    console.log("downloads:", downloads);
+    console.log("rating:", rating);
+    console.log("isPublic:", isPublic);
+};
+
+doStuffWithBook3(book);
+console.log(". . . . . . . . . . . . . . . . .");
+
+//? ✳️ Або відразу деструктуризуємо об'єкт
+//? в сигнатурі (підписі) функції - немає різниці.
+function doStuffWithBook4({
+    title,
+    numberOfPages,
+    downloads,
+    rating,
+    isPublic,
+}) {
+    //todo: Робимо щось вже з значеннями, деструктуризуваними з об'єкта в сигнатурі (підписі) функції:
+    console.log("title:", title);
+    console.log("numberOfPages:", numberOfPages);
+    console.log("downloads:", downloads);
+    console.log("rating:", rating);
+    console.log("isPublic:", isPublic);
+};
+
+doStuffWithBook4(book);
+console.log("---------------------------------");

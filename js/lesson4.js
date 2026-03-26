@@ -241,3 +241,14 @@ const scores = students1.map(score => score.score);
 console.log(`Scores: ${scores}`);
 console.log("names:", names); //! ['Манго', 'Полі', 'Аякс', 'Ківі', 'Х'юстон']
 console.log("------------------------------------------------------------------");
+
+//! Вирішення без використання перебираючих методів
+const names1 = [];
+const scores1 = [];
+
+for (const {name, score} of students1) {
+  names1.push(name);
+  scores1.push(score);
+}
+console.log(`Scores: ${scores1}`);
+console.log("names:", names1);

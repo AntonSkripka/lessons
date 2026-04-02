@@ -269,5 +269,14 @@ const n = 5;
 //! Код виконаного завдання
 //todo-1: Використовуємо готовий масив:
 // arrayIn = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130];
+for (let i = 1; i <= m; i++) {
+    arrayIn.push(i * 10);
+}
+console.log("Початковий масив:", arrayIn);
+let finalArr = [];
+for (let i = 0; i < arrayIn.length; i += n) {
+    const chunk = arrayIn.slice(i, i + n);
+    finalArr.push(chunk);
+}
 
-//todo-2: Формуємо масив з m елементів:
+console.log("Вихідний масив масивів:", finalArr);

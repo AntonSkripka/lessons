@@ -54,7 +54,7 @@ console.log(
 //? User ${ім'я} is ${вік} years old and has ${кількість фоловерів} followers
 //! Код виконаного завдання ⤵️
 class User {
-    constructor({ name, age, followers }) {
+    constructor({ name, age, followers } = {}) {
         this.name = name,
         this.age = age,
         this.followers = followers
@@ -100,7 +100,7 @@ console.log(
 //? 🔸 removeItem(item) - отримує товар і, якщо він є, видаляє його з поточних
 //! Код виконаного завдання ⤵️
 class Storage {
-    constructor(items) {
+    constructor(items = []) {
         this.items = items
     };
 

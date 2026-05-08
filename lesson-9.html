@@ -1,14 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lesson 9</title>
 </head>
+
 <body>
+    <style>
+        /* *======================================= */
+        /*? Загальні властивості кнопок */
+        button {
+            padding: 5px 10px;
+            font-family: monospace;
+            font-weight: 700;
+            border-radius: 5px;
+            border-color: gray;
+            color: white;
+            /* color: yellow; */
+            /* On */
+            background-color: red;
+            /* #b70000 */
+            /* background-color: green; */
+            /* On */
+            box-shadow: 6px 6px 8px #636363;
+            /* box-shadow: 3px 3px 4px #969696; */
+            /* On */
+        }
+
+        /*! --------------------------------------------- */
+
+
+        h3 {
+            font-size: 1em;
+        }
+
+        .list,
+        .menu,
+        .menu2,
+        .image,
+        .button-box,
+        .box {
+            width: 45%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            background-color: #d4f4ff;
+        }
+
+        .box {
+            text-align: center;
+        }
+
+        .box button {
+            color: #ad00e2;
+            background-color: #fffac4;
+        }
+
+        button.accent {
+            color: green;
+        }
+
+        .btn {
+            width: 90%;
+        }
+
+        input {
+            width: 90%;
+            margin-bottom: 5px;
+        }
+
+        h3,
+        h4 {
+            text-align: center;
+        }
+
+        h4 {
+            color: blue;
+        }
+    </style>
     <h1>Lesson 9</h1>
     <a href="./hw-65.html">Previous</a>
     <a href="#">Next</a>
+    <h2 class="title-section">
+        1.Події.
+        <br>
+        Методи addEventListener()
+        <br>
+        і removeEventListener()​.
+    </h2>
+    <div class="box">
+        <button class="my-button-1">My button-1</button>
+        <button class="my-button-2">My button-2</button>
+        <button class="my-button-3">My button-3</button>
+    </div>
+    <div class="box">
+        <button class="btn js-add">Add Listener</button>
+        <button class="btn js-remove">Remove Listener</button>
+        <hr>
+        <button class="btn js-target-btn">Click me</button>
+    </div>
+
+    <div class="part_2">
+        <h2 class="title-section">
+            2.Об'єкт події​.
+        </h2>
+        <div class="box">
+            <button class="button1">Button-1</button>
+            <button class="button2">Button-2</button>
+        </div>
+    </div>
+
+    <form>
+        <input>
+        <button type="submit"></button>
+    </form>
+
+    <h2 class="title-section">
+        3.Дії браузера за замовчуванням.
+        <br>
+        Подія submit.
+    </h2>
+    <div class="box">
+        <form class="register-form" autocomplete="off">
+            <input type="text" name="username" placeholder="Username" />
+            <input type="password" name="password" placeholder="Password" />
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+
     <script type="module" src="./js/lesson9.js"></script>
 </body>
+
 </html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HW-66</title>
+</head>
+
+<body>
+    <style>
+        #validation-input {
+            border: 3px solid #bdbdbd;
+        }
+
+        #validation-input.valid {
+            border-color: #4caf50;
+        }
+
+        #validation-input.invalid {
+            border-color: #f44336;
+        }
+    </style>
+    <h1>HW-66</h1>
+    <a href="./lesson-9.html">Previous</a>
+    <a href="./lesson-10.html">Next</a>
+
+    <form class="form">
+        <p>Choose a color:</p>
+        <label>
+            <input type="radio" name="color" value="red" />
+            Red
+        </label>
+        <label>
+            <input type="radio" name="color" value="white" checked />
+            White
+        </label>
+        <label>
+            <input type="radio" name="color" value="green" />
+            Green
+        </label>
+    </form>
+
+    <!-- ----------------- -->
+
+    <input type="text" placeholder="Ваше ім'я?" id="name-input" />
+    <h1>Привіт, <span id="name-output">незнайомець</span>!</h1>
+
+    <!-- ---------------- -->
+
+    <input type="text" id="validation-input" data-length="6" placeholder="Введи 6 символів" />
+
+    <!-- ---------------- -->
+    <br/>
+    <span id="text">Абракадабра!</span>
+    <br />
+    <input id="font-size-control" type="range" />
+
+    <script src="./js/hw-66.js"></script>
+</body>
+
+</html>

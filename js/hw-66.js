@@ -25,11 +25,17 @@ console.log(
 */
 //! Код виконаного завдання
 const form = document.querySelector(".form");
+const checkedInput = form.querySelector("input:checked");
+console.log(checkedInput);
+
+if (checkedInput) {
+    document.body.style.backgroundColor = checkedInput.value;
+}
 
 form.addEventListener("change", (e) =>
     {
         if (e.target !== e.currentTarget) {
-            form.style.backgroundColor = e.target.value;
+            document.body.style.backgroundColor = e.target.value;
         };
     }
 );
@@ -63,6 +69,8 @@ input.addEventListener('input', (e) => {
         span.textContent = "незнайомець";
     };
 });
+
+// span.textContent = event.currentTarget.value || "НЕЗНАЙОМЕЦЬ";
 
 console.log("--------------------------------------------------");
 

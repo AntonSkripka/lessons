@@ -177,3 +177,83 @@ function clickButton(event) {
     
 };
 console.log("---------------------------------------------------------------------------");
+
+//! Координати: clientX/Y, pageX/Y
+console.warn("Координати clientX/Y і pageX/Y: \n https://uk.javascript.info/coordinates");
+//? ✴️ Усі події миші надають координати у двох варіантах:
+//? 🔸 Відносно Window: clientX та clientY.
+//? 🔸 Відносно Document: pageX та pageY.
+
+
+//! Координати clientX/Y
+console.warn("Координати clientX/Y:");
+const currentMouseCoordinatesWindow = document.getElementById("output-window");
+console.log("currentMouseCoordinatesWindow:", currentMouseCoordinatesWindow);
+
+document.addEventListener("mousemove", showCoordinatesClientXY);
+
+function showCoordinatesClientXY(event) {
+    currentMouseCoordinatesWindow.textContent =
+        `clientX: ${event.clientX}, clientY: ${event.clientY}`;
+};
+console.log(". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ");
+
+//! Координати pageX/Y
+console.warn("Координати pageX/Y:");
+const currentMouseCoordinatesDocument = document.getElementById("output-document");
+console.log("currentMouseCoordinatesDocument:", currentMouseCoordinatesDocument);
+
+document.addEventListener("mousemove", showCoordinatesPagetXY);
+
+function showCoordinatesPagetXY(event)  {
+    currentMouseCoordinatesDocument.textContent =
+        `pageX: ${event.pageX}, pageY: ${event.pageY}`;
+};
+console.log(". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ");
+
+//! Різниця між clientX/Y, pageX/Y
+//? ✴️ Коли сторінка прокручена до самого початку,
+//? то верхній лівий кут вікна точно збігається
+//? з верхнім лівим кутом документа,
+//? тому їх системи координат також збігаються.
+//? Але якщо документ прокрутити,
+//? то координати елементів відносно вікна змінюються,
+//? а координати, відносно документа, залишаються сталими.
+//? ✳️ На цьому малюнку ми беремо точку в документі 
+//? та демонструємо її координати 
+//? перед прокруткою (ліворуч) і після неї (праворуч):
+console.warn(`Різниця між clientX/Y, pageX/Y: \n ${((window.location.href).split('/')).slice(0, -2).join('/') + '/'}${"lesson-FE3_20/images/coordinates-clientXY-pageXY.jpg"}`);
+
+//? ✴️ Коли використати?
+//? 🔸 clientX/Y – якщо потрібні координати
+//?    всередині видимої частини сторінки
+//?    (наприклад, для роботи з element.getBoundingClientRect()).
+//? 🔸 pageX/Y – якщо важливо враховувати
+//?    прокручування сторінки
+//?    (наприклад, для позиціонування спливаючих вікон, підказок).
+//? ❗️❗️❗️ Підсумок:
+//? Якщо сторінка довга і користувач може прокручувати її вниз, 
+//? використовуйте pageX/Y.
+//? Якщо прокручування не має значення – clientX/Y.
+console.log("---------------------------------------------------------------------------");
+
+//! Прокрутка (scroll)
+console.warn("Прокрутка (scroll):");
+//? ✴️ Подія scroll дозволяє реагувати
+//? на прокручування сторінки або елемента.
+//? Є багато цікавих речей, які при цьому можна зробити.
+//? ✳️ Наприклад:
+//? 🔸 Показати/приховати додаткові елементи керування
+//?    або інформацію залежно від того,
+//?    де в документі перебуває користувач
+//? 🔸 Завантажити більше даних,
+//?    коли користувач прокрутить сторінку вниз до кінця.
+window.addEventListener("scroll", () => {
+    let scrollTop = window.scrollY || document.documentElement.scrollTop;
+    document.getElementById("scroll-info").textContent = `Прокрутка: ${scrollTop}px`;
+});
+//? ✳️ Як це працює:
+//? 🔸 window.addEventListener("scroll", callback) - відстежує подію scroll.
+//? 🔸 window.scrollY або document.documentElement.scrollTop – отримують поточну позицію прокручування.
+//?  🔸scrollTop - виводить на #scrollInfo кількість пікселів, на яку сторінка прокручена вниз.
+console.log("---------------------------------------------------------------------------");

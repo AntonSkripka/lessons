@@ -170,6 +170,9 @@ function destroyBoxes() {
 }
 
 divRender.addEventListener("click", () => {
+    if (Number(divNumber.value) > 100) {
+        divNumber.value = 100;
+    };
     createBoxes(Number(divNumber.value));
 });
 

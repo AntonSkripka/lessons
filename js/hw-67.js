@@ -93,11 +93,11 @@ console.log(
 //! Код виконаного завдання
 const gallery = document.querySelector(".gallery");
 
-document.addEventListener("keydown", (e) => {
+document.addEventListener("keydown", (event) => {
     if (event.key === "ArrowLeft") {
-        gallery.scrollLeft -= 30;
+        gallery.scrollLeft -= event.target.clientWidth;
     } else if (event.key === "ArrowRight") {
-        gallery.scrollLeft += 30;
+        gallery.scrollLeft += event.target.clientWidth;
     }
 })
 

@@ -1,14 +1,550 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lesson 17</title>
+    <title>HW 79</title>
+    
+    <style>
+        body {
+            background-color: #f0f2f5;
+            color: #333;
+            padding: 20px;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+
+        button:disabled {
+            background: #ccc !important;
+            cursor: not-allowed;
+        }
+
+        input[type="number"] {
+            width: 100px;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #bdc3c7;
+            border-radius: 6px;
+            text-align: center;
+            margin-right: 10px;
+        }
+
+        a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 450px;
+            box-sizing: border-box;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        #game-zone {
+            width: 100%;
+            height: 300px;
+            border: 2px solid #bdc3c7;
+            position: relative;
+            overflow: hidden;
+            background: #fafafa;
+            border-radius: 8px;
+        }
+
+        #target {
+            width: 40px;
+            height: 40px;
+            background-color: #e74c3c;
+            position: absolute;
+            cursor: pointer;
+            display: none;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        #start-btn {
+            background: #2ecc71;
+            color: white;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        #start-btn:hover:not(:disabled) {
+            background: #27ae60;
+        }
+
+        .timer-control {
+            margin: 15px 0;
+        }
+
+        #timer-btn {
+            background: #3498db;
+            color: white;
+        }
+
+        #timer-btn:hover {
+            background: #2980b9;
+        }
+
+        #countdown-display {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #e67e22;
+            min-height: 36px;
+        }
+
+        .lastdiv {
+            margin-bottom: 20px;
+        }
+
+        
+        .bg-glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: 1;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+        .blob-1 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, #00f3ff 0%, transparent 70%);
+            bottom: 150px;
+            margin-left: -250px;
+        }
+        .blob-2 {
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, #ff007f 0%, transparent 70%);
+            bottom: 50px;
+            margin-left: 150px;
+        }
+
+        .chronometer-container {
+            background: #0a0b10;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 40px;
+            width: 100%;
+            max-width: 420px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            z-index: 10;
+            box-sizing: border-box;
+            margin-bottom: 200px;
+        }
+
+        .chronometer-container .app-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .chronometer-container .app-header h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin: 0;
+            background: linear-gradient(45deg, #ff007f, #00f3ff);
+            /* -webkit-background-clip: text; */
+            -webkit-text-fill-color: transparent;
+        }
+        .chronometer-container .subtitle {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.4);
+            margin-top: 4px;
+        }
+
+        .chronometer-container .mode-tabs {
+            display: flex;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 4px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            width: 100%;
+        }
+        .chronometer-container .tab-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.5);
+            padding: 10px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        .chronometer-container .tab-btn.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .chronometer-container .display-wrapper {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .chronometer-container .progress-ring {
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: rotate(-90deg);
+        }
+        .chronometer-container .progress-ring__circle {
+            transition: stroke-dashoffset 0.1s linear;
+            filter: drop-shadow(0 0 8px #00f3ff);
+        }
+
+        .chronometer-container .digital-display {
+            text-align: center;
+            z-index: 2;
+            color: #ffffff;
+            font-variant-numeric: tabular-nums;
+        }
+        .chronometer-container .time-part {
+            font-size: 2.8rem;
+            font-weight: 300;
+            letter-spacing: -1px;
+        }
+        .chronometer-container .divider {
+            font-size: 2.5rem;
+            color: rgba(255, 255, 255, 0.2);
+            margin: 0 2px;
+        }
+        .chronometer-container .ms-part {
+            font-size: 1.2rem;
+            color: #ff007f;
+            font-weight: 400;
+            margin-left: 2px;
+            display: inline-block;
+            width: 30px;
+            text-align: left;
+        }
+
+        .chronometer-container .timer-inputs {
+            width: 100%;
+            margin-bottom: 30px;
+            animation: fadeIn 0.3s ease forwards;
+        }
+        .chronometer-container .input-title {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.5);
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .chronometer-container .inputs-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        .chronometer-container .input-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .chronometer-container .input-box input[type="number"] {
+            width: 60px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1.4rem;
+            text-align: center;
+            outline: none;
+            margin-right: 0;
+            padding: 0;
+        }
+        .chronometer-container .input-box input[type="number"]:focus {
+            border-color: #00f3ff;
+            background: rgba(0, 243, 255, 0.05);
+        }
+        .chronometer-container .input-box input::-webkit-outer-spin-button,
+        .chronometer-container .input-box input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .chronometer-container .input-box label {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.4);
+            margin-top: 5px;
+        }
+
+        .chronometer-container .pause-input-box {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .chronometer-container .pause-input-box input[type="number"] {
+            width: 60px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            color: #fff;
+            padding: 4px;
+            text-align: center;
+            outline: none;
+            margin-right: 0;
+            font-size: 14px;
+        }
+
+        .chronometer-container .control-buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .chronometer-container .btn {
+            border: none;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s ease;
+            padding: 0;
+        }
+        .chronometer-container .btn:active {
+            transform: scale(0.92);
+        }
+        
+        .chronometer-container .btn-primary {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: #00f3ff;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.4);
+        }
+        .chronometer-container .btn-primary:hover {
+            background: #ffffff;
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.6);
+        }
+        .chronometer-container .btn-primary.paused {
+            background: #ff007f;
+            box-shadow: 0 0 20px rgba(255, 0, 127, 0.4);
+        }
+        .chronometer-container .btn-primary .icon-play {
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-left: 18px solid #0a0b10;
+            margin-left: 4px;
+        }
+        .chronometer-container .btn-primary.paused .icon-play {
+            width: 14px;
+            height: 18px;
+            border: none;
+            border-left: 5px solid #fff;
+            border-right: 5px solid #fff;
+            box-sizing: border-box;
+            background: transparent;
+            margin-left: 0;
+        }
+
+        .chronometer-container .btn-secondary {
+            width: 85px;
+            height: 44px;
+            border-radius: 22px;
+            background: rgba(255, 255, 255, 0.07);
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .chronometer-container .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+        }
+
+        .chronometer-container .laps-container {
+            width: 100%;
+            max-height: 120px;
+            overflow-y: auto;
+            margin-top: 10px;
+            padding-right: 5px;
+        }
+        .chronometer-container .laps-container::-webkit-scrollbar {
+            width: 4px;
+        }
+        .chronometer-container .laps-container::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+        .chronometer-container .laps-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 0;
+        }
+        .chronometer-container .lap-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+            border-left: 3px solid #ff007f;
+            animation: slideIn 0.2s ease;
+        }
+        .chronometer-container .lap-item span:last-child {
+            font-family: monospace;
+            color: #fff;
+        }
+
+        .chronometer-container .hidden {
+            display: none !important;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideIn {
+            from { transform: translateX(-10px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Lesson 17</h1>
-    <a href="./hw-73.html">Previous</a>
-    <a href="#">Next</a>
+    <h1>HW 79</h1>
+    <div style="display: flex; gap: 15px;">
+        <a href="./hw-73.html">Previous</a>
+        <a href="#">Next</a>
+    </div>
+
+    <div id="task2"></div>
+
+    <!-- Задання 3: Інтерактивна гра -->
+    <div class="container">
+        <h2>Завдання 3: Інтерактивна гра</h2>
+        <div class="stats">
+            <div>Очки: <span id="score">0</span></div>
+            <div>Час: <span id="timer">10</span>с</div>
+        </div>
+        <div id="game-zone">
+            <div id="target"></div>
+        </div>
+        <button id="start-btn">Почати гру</button>
+    </div>
+
+    <!-- Задання 4: Контроль часу -->
+    <div class="container lastdiv">
+        <h2>Завдання 4: Контроль часу</h2>
+        <div class="timer-control">
+            <input type="number" id="seconds-input" min="1" placeholder="Секунди">
+            <button id="timer-btn">Запустити</button>
+        </div>
+        <div id="countdown-display">Введіть час та натисніть старт</div>
+    </div>
+
+    <div class="bg-glow blob-1"></div>
+    <div class="bg-glow blob-2"></div>
+
+    <div class="chronometer-container">
+        <div class="mode-tabs">
+            <button class="tab-btn active" data-mode="stopwatch">Секундомер</button>
+            <button class="tab-btn" data-mode="timer">Таймер</button>
+        </div>
+
+        <div class="display-wrapper">
+            <svg class="progress-ring" width="280" height="280">
+                <circle class="progress-ring__circle-bg" stroke="rgba(255,255,255,0.05)" stroke-width="8" cx="140" cy="140" r="125" fill="transparent"/>
+                <circle class="progress-ring__circle" id="progressCircle" stroke="#00f3ff" stroke-width="8" cx="140" cy="140" r="125" fill="transparent" stroke-dasharray="785.4" stroke-dashoffset="0"/>
+            </svg>
+
+            <div class="digital-display">
+                <span class="time-part" id="hours">00</span><span class="divider">:</span>
+                <span class="time-part" id="minutes">00</span><span class="divider">:</span>
+                <span class="time-part" id="seconds">00</span>
+                <span class="ms-part" id="milliseconds">.00</span>
+            </div>
+        </div>
+
+        <div class="timer-inputs hidden" id="timerInputsBlock">
+            <p class="input-title">Установіть час:</p>
+            <div class="inputs-group">
+                <div class="input-box">
+                    <input type="number" id="inputHours" min="0" max="23" value="00" placeholder="00">
+                    <label>Год</label>
+                </div>
+                <div class="input-box">
+                    <input type="number" id="inputMinutes" min="0" max="59" value="00" placeholder="00">
+                    <label>Хв</label>
+                </div>
+                <div class="input-box">
+                    <input type="number" id="inputSeconds" min="0" max="59" value="00" placeholder="00">
+                    <label>С</label>
+                </div>
+            </div>
+            <div class="pause-input-box">
+                <label for="autoPauseTime">Зупинити через:</label>
+                <input type="number" id="autoPauseTime" min="1" placeholder="хв">
+            </div>
+        </div>
+
+        <div class="control-buttons">
+            <button class="btn btn-primary" id="btnMain" title="Старт">
+                <div class="icon-play"></div>
+            </button>
+        </div>
+    </div>
+
     <script type="module" src="./js/lesson17.js"></script>
 </body>
+
 </html>

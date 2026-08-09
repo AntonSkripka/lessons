@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>HW-83</title>
+  <style>
+    body {
+      margin: 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    input[type="range"] {
+      width: 100%;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #photo-list {
+      list-style: none;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 10px;
+    }
+
+    .photo-item {
+      border: 1px solid #eee;
+      border-radius: 5px;
+      overflow: hidden;
+      background-color: #f0f0f0;
+      aspect-ratio: 1 / 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .photo-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    .photo-item img.loaded {
+      opacity: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>HW-83</h1>
+  <a href="./hw-82.html">Previous</a>
+  <a href="#">Next</a>
+  <form id="my-form">
+    <label for="range-input">Оберіть значення (3-10):</label>
+    <input type="range" id="range-input" name="range-input" min="3" max="10" value="5">
+    <span id="range-value">5</span>
+    <button type="button" id="reset-button">Сбросити</button>
+    <button type="submit">Отримати фото</button>
+  </form>
+
+  <h2>Список фото</h2>
+  <ul id="photo-list"></ul>
+
+  <script type="module" src="./src/hw-83.js"></script>
+</body>
+
+</html>

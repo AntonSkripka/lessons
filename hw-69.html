@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HW-69</title>
+</head>
+
+<body>
+    <style>
+        body {
+            background-color: green;
+        }
+
+        .slider {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .slider__input {
+            width: 100%;
+        }
+
+        .slider__image {
+            display: block;
+            margin: 20px auto;
+            width: 400px;
+            max-width: 800px;
+        }
+
+        #area {
+            width: 400px;
+            height: 400px;
+            background-color: #f0f0f0;
+            border: 3px solid #333;
+            margin: 50px auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #box {
+            width: 50px;
+            height: 50px;
+            background-color: red;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: transform 0.1s ease-out;
+            pointer-events: none;
+        }
+    </style>
+    <h1>HW-69</h1>
+    <a href="./lesson-12.html">Previous</a>
+    <a href="./lesson-13.html">Next</a>
+
+    <div div class="slider">
+        <input type="range" min="1" max="100" value="50" class="slider__input" />
+        <img src="https://cdn.pixabay.com/photo/2019/05/17/04/35/lighthouse-4208843_1280.jpg" class="slider__image" />
+    </div>
+
+
+    <div id="area">
+        <div id="box"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
+        integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">    </script>
+    <script src="./js/hw-69.js"></script>
+</body>
+
+</html>

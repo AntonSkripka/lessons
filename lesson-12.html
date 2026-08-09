@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 12</title>
+</head>
+
+<body>
+    <style>
+        body {
+            height: 1500px;
+        }
+
+        h3 {
+            font-size: 1em;
+        }
+
+        .list,
+        .menu,
+        .menu2,
+        .image,
+        .button-box,
+        .box {
+            width: 45%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            background-color: #dfffdf;
+        }
+
+        .box {
+            text-align: center;
+        }
+
+        .box button {
+            color: #ad00e2;
+            background-color: #fffac4;
+        }
+
+        button.accent {
+            color: green;
+        }
+
+
+        /*? Подія "scroll" */
+        /*? Throttle */
+        /*? Debounce */
+        .cta {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+        }
+
+        .cta::before,
+        .cta::after {
+            content: "\2193";
+            margin-left: 4px;
+            margin-right: 4px;
+        }
+
+        .event-counter {
+            position: sticky;
+            top: 100px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .box-in-box {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 12px;
+            border: 1px solid #03a9f4;
+            border-radius: 4px;
+        }
+
+        /*? Throttle */
+        /*? Debounce */
+        /*? Режими методу Debounce​ */
+        .box2-in-box,
+        .box3-in-box,
+        .box4-in-box {
+            min-width: 160px;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-left: 8px;
+            margin-right: 8px;
+            padding: 12px;
+            border: 1px solid #03a9f4;
+            border-radius: 4px;
+        }
+
+        .event-counter p {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .event-counter span {
+            font-size: 48px;
+            font-family: monospace;
+        }
+
+        .part_4 .box {
+            width: auto;
+        }
+    </style>
+    <h1>Lesson 12</h1>
+    <a href="./hw-68.html">Previous</a>
+    <a href="./hw-69.html">Next</a>
+    <p id="start-case">qwerty</p>
+    <div class="box">
+        <h3 class="cta">Scroll me</h3>
+        <div class="event-counter">
+            <div class="box-in-box">
+                <p>Number of scroll events</p>
+                <span class="output">0</span>
+            </div>
+        </div>
+    </div>
+    <div class="box">
+        <h3 class="cta">Scroll me (throttle)</h3>
+        <div class="event-counter">
+            <div class="box2-in-box">
+                <p>No timing function</p>
+                <span class="output1 vanilla">0</span>
+            </div>
+            <div class="box2-in-box">
+                <p>Throttled</p>
+                <span class="output1 throttled">0</span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="event-counter">
+        <div class="box3-in-box">
+            <p>No timing function</p>
+            <span class="output vanilla">0</span>
+        </div>
+        <div class="box3-in-box">
+            <p>Throttled</p>
+            <span class="output throttled">0</span>
+        </div>
+        <div class="box3-in-box">
+            <p>Debounced</p>
+            <span class="output debounced">0</span>
+        </div>
+    </div>
+
+    <div class="box">
+        <h3 class="cta">Input (with debounce)</h3>
+        <input class="input" type="text">
+    </div>
+
+    <div class="box trailing-leading">
+            <h3 class="cta">Scroll me (throttle, Trailing Debounce, Leading debounce)</h3>
+            <div class="event-counter">
+                <div class="box4-in-box">
+                    <p>No timing function</p>
+                    <span class="output vanilla">0</span>
+                </div>
+            
+                <div class="box4-in-box">
+                    <p>Throttled</p>
+                    <span class="output throttled">0</span>
+                </div>
+            
+                <div class="box4-in-box">
+                    <p>Trailing debounce</p>
+                    <span class="output trailing">0</span>
+                </div>
+            
+                <div class="box4-in-box">
+                    <p>Leading debounce</p>
+                    <span class="output leading">0</span>
+                </div>
+            </div>
+        </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
+        integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">    </script>
+    <script type="module" src="./js/lesson12.js"></script>
+</body>
+
+</html>

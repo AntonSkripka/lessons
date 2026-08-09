@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 10</title>
+</head>
+
+<body>
+    <style>
+        /*? Загальні властивості кнопок */
+        button {
+            padding: 5px 10px;
+            font-family: monospace;
+            font-weight: 700;
+            border-radius: 5px;
+            border-color: gray;
+            color: white;
+            /* color: yellow; */
+            /* On */
+            background-color: red;
+            /* #b70000 */
+            /* background-color: green; */
+            /* On */
+            box-shadow: 6px 6px 8px #636363;
+            /* box-shadow: 3px 3px 4px #969696; */
+            /* On */
+        }
+
+        /*! --------------------------------------------- */
+
+
+        h3 {
+            font-size: 1em;
+        }
+
+        .list,
+        .menu,
+        .menu2,
+        .image,
+        .button-box,
+        .box {
+            width: 45%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            background-color: #dfffdf;
+        }
+
+        .box {
+            text-align: center;
+        }
+
+        .box button {
+            color: #ad00e2;
+            background-color: #fffac4;
+        }
+
+        button.accent {
+            color: green;
+        }
+
+        .btn {
+            width: 90%;
+        }
+
+        input {
+            width: 90%;
+            margin-bottom: 5px;
+        }
+
+        h3,
+        h4 {
+            text-align: center;
+        }
+
+        h4 {
+            color: blue;
+        }
+    </style>
+    <h1>Lesson 10</h1>
+    <a href="./hw-66.html">Previous</a>
+    <a href="./hw-67.html">Next</a>
+
+    <div class="part part_2">
+        <h2 class="title-section">
+            2.<u>Події миші​:</u>
+            <br>
+            Типи подій миші.
+            <br>
+            Порядок подій.
+            <br>
+            Кнопка миші.
+            <br>
+            <a href="./images/coordinates-clientXY-pageXY.jpg">Координати: clientX/Y, pageX/Y</a>.
+            <br>
+            Прокрутка (scroll).
+        </h2>
+        <div class="box">
+            <button class="my-button-1">My button-1</button>
+            <button class="my-button-2">My button-2</button>
+        </div>
+        <div class="box">
+            <h3>Відносно Window: <i>clientX та clientY</i>​</h3>
+            <p>Переміщуйте мишку, щоб побачити координати щодо вікна:</p>
+            <p><u>Відносно Window:</u> <span id="output-window"></span></p>
+        </div>
+        <div class="box">
+            <h3>Відносно Document: <i>pageX та pageY</i>​</h3>
+            <p>Переміщуйте мишку, щоб побачити координати щодо вікна:</p>
+            <p><u>Відносно Document:</u> <span id="output-document"></span></p>
+        </div>
+        <div class="box">
+            <h3>Прокрутка (scroll)</i>​</h3>
+            <div id="scroll-info">Прокрутіть сторінку...</div>
+        </div>
+        <button class="button-2">Off</button>
+    </div>
+
+
+    <script type="module" src="./js/lesson10.js"></script>
+</body>
+
+</html>

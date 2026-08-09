@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>HW-80</title>
+    </head>
+
+    <body>
+        <h1>HW-80</h1>
+        <a href="./lesson-17.html">Previous</a>
+        <a href="./hw-82.html">Next</a>
+        <label class="input-label">
+            Введіть майбутню дату<i>(більше від сьогоднішньої дати на 1 день)</i> :
+            <input id="target-date" type="datetime-local" required>
+
+            <p id="error-message" style="color: red; font-weight: bold; min-height: 1.5em;"></p>
+        </label>
+        <button id="start-timer">Start timer</button>
+
+        <div class="timer" id="timer-1">
+            <div class="field">
+                <span class="label">Days</span>
+                <span class="value" data-value="days">--</span>
+
+            </div>
+            <div class="field">
+                <span class="label">Hours</span>
+                <span class="value" data-value="hours">--</span>
+            </div>
+            <div class="field">
+                <span class="label">Minutes</span>
+                <span class="value" data-value="mins">--</span>
+            </div>
+            <div class="field">
+                <span class="label">Seconds</span>
+                <span class="value" data-value="secs">--</span>
+
+            </div>
+        </div>
+        <script src="./js/hw-80.js"></script>
+    </body>
+
+    </html>

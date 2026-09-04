@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HW-84</title>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --radius: 12px;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+        }
+
+        body {
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            min-height: 100vh;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-top: 0;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+            letter-spacing: -0.02em;
+        }
+
+        body>a {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 14px;
+            margin: 0 4px 20px;
+            background-color: var(--card-bg);
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            transition: all 0.2s ease;
+        }
+
+        body>a:hover {
+            color: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-1px);
+        }
+
+        #hwForm {
+            background: var(--card-bg);
+            padding: 24px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 24px;
+            box-sizing: border-box;
+        }
+
+        #hwForm label {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-main);
+        }
+
+        #hwForm input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 3px;
+            outline: none;
+        }
+
+        #hwForm input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            transition: transform 0.1s ease, background-color 0.2s ease;
+        }
+
+        #hwForm input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+            background: var(--primary-hover);
+        }
+
+        #hwBtn {
+            margin-top: 8px;
+            padding: 12px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        #hwBtn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        #hwBtn:active {
+            transform: scale(0.98);
+        }
+
+        #data-list {
+            width: 100%;
+            max-width: 600px;
+            min-height: 180px;
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+            display: flex;
+            /* flex-direction: column; */
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        #data-list li {
+            background: var(--card-bg);
+            width: 150px;
+            min-height: 180px;
+            padding: 14px 18px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+            font-size: 0.95rem;
+            color: var(--text-main);
+            animation: fadeIn 0.3s ease-in-out;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .posts-info {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .posts-info span {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        #prevBtn,
+        #nextBtn {
+            padding: 10px 20px;
+            margin: 0 4px;
+            background-color: var(--card-bg);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+            transition: all 0.2s ease;
+        }
+
+        #prevBtn:hover,
+        #nextBtn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background-color: #f8fafc;
+        }
+
+        #prevBtn:disabled,
+        #nextBtn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            border-color: var(--border);
+            color: var(--text-muted);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .btnList {
+            display: flex;
+            gap: 15px;
+            list-style-type: none;
+            padding: 0;
+        }
+    </style>
+  <script type="module" crossorigin src="./assets/hw84-CL8pPnTW.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/modulepreload-polyfill-B5Qt9EMX.js">
+</head>
+
+<body>
+    <h1>HW-84</h1>
+    <a href="./hw-83.html">Previous</a>
+    <a href="./hw-84.html">Next</a>
+
+    <form id="hwForm">
+        <label>Кількість елементів на сторінці: <input id="hwNumPerPage" type="range" min="3" max="20"></label>
+        <label>Номер сторінки: <input id="hwNumPage" type="range" min="1" max="20"></label>
+        <button type="submit" id="hwBtn">Отримати елементи</button>
+    </form>
+
+    <ul id="data-list"></ul>
+
+    <p class="posts-info">Сторінка № <span class="page">*</span> з <span class="number-of-pages">*</span></p>
+    <ul class="btnList">
+        <li>
+            <button id="prevBtn">⇐ Prev</button>
+        </li>
+        <li>
+            <button id="nextBtn">Next ⇒</button>
+        </li>
+    </ul>
+
+</body>
+
+</html>

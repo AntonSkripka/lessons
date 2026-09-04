@@ -47,7 +47,7 @@ myForm.addEventListener('submit', async (event) => {
         const response = await fetch(
             `https://pixabay.com/api/?key=${API_KEY}&q=nature&image_type=photo&per_page=${count}`
         );
-        if (!response.ok) throw new Error('Ошибка API');
+        if (!response.ok) throw new Error('Помилка API');
         const data = await response.json();
 
         const fragment = document.createDocumentFragment();

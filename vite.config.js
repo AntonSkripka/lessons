@@ -4,7 +4,8 @@ import fs from 'fs'
 
 const input = {
   main: resolve(__dirname, 'index.html'),
-  hw83: resolve(__dirname, 'hw-83.html')
+  hw83: resolve(__dirname, 'hw-83.html'),
+  hw84: resolve(__dirname, 'hw-84.html')
 }
 
 export default defineConfig({

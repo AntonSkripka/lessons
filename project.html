@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROJECT 4</title>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --secondary: #64748b;
+            --secondary-hover: #475569;
+            --danger: #ef4444;
+            --danger-hover: #dc2626;
+
+            --radius: 8px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            --transition: all 0.2s ease-in-out;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .app-header {
+            background-color: #ffffff;
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .search-form {
+            display: flex;
+            flex: 1;
+            max-width: 450px;
+            gap: 0.5rem;
+        }
+
+        .search-form input {
+            flex: 1;
+            padding: 0.5rem 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            font-size: 0.95rem;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            transition: var(--transition);
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-secondary {
+            background-color: #f1f5f9;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: #e2e8f0;
+        }
+
+        .btn-danger {
+            background-color: var(--danger);
+            color: #fff;
+        }
+
+        .btn-danger:hover {
+            background-color: var(--danger-hover);
+        }
+
+        .btn-small {
+            padding: 0.25rem 0.6rem;
+            font-size: 0.8rem;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-icon {
+            background: none;
+            border: none;
+            font-size: 1.25rem;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        .btn-icon:hover {
+            color: var(--text-main);
+        }
+
+        .main-content {
+            padding-top: 2rem;
+            padding-bottom: 3rem;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-title,
+        .card-tags,
+        .comment-item span {
+            overflow-wrap: break-word;
+            word-break: break-word;
+            hyphens: auto;
+        }
+
+        .card-image-wrapper {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            background-color: #f0f0f0;
+        }
+
+        .card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            gap: 0.75rem;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .card-tags {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .card-comments-section {
+            border-top: 1px solid var(--border-color);
+            padding-top: 0.75rem;
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .comments-list {
+            list-style: none;
+            max-height: 120px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .comment-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            background: #f8fafc;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+        }
+
+        .comment-form {
+            display: flex;
+            gap: 0.4rem;
+        }
+
+        .comment-form input {
+            flex: 1;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.85rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+        }
+
+        .card-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.5rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 0.75rem;
+        }
+
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 2.5rem;
+        }
+
+        .page-indicator {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .loader,
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            font-size: 1.1rem;
+            color: var(--text-muted);
+        }
+
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(15, 23, 42, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-window {
+            background-color: #fff;
+            border-radius: var(--radius);
+            width: 100%;
+            max-width: 480px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .modal-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .form-group label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .form-group input {
+            padding: 0.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            font-size: 0.95rem;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+    </style>
+  <script type="module" crossorigin src="./assets/project-DRrcrzAL.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/modulepreload-polyfill-B5Qt9EMX.js">
+</head>
+
+<body>
+    <header class="app-header">
+        <div class="container header-container">
+            <h1 class="logo">MediaGallery</h1>
+
+            <form id="search-form" class="search-form">
+                <input type="text" id="search-input" placeholder="Search images by keyword..." autocomplete="off" />
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+
+            <div class="header-actions">
+                <button id="import-btn" class="btn btn-secondary">Import from Pixabay</button>
+                <button id="add-card-btn" class="btn btn-primary">+ Add New Card</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container main-content">
+
+        <div id="loader" class="loader hidden">Loading items...</div>
+        <div id="empty-state" class="empty-state hidden">No cards found. Try another query or add a new card! Or click
+            "Import from Pixabay"</div>
+
+        <section id="cards-grid" class="cards-grid">
+            <!-- 
+      <article class="card" data-id="1">
+        <div class="card-image-wrapper">
+          <img src="..." alt="..." class="card-img" />
+        </div>
+        <div class="card-content">
+          <h3 class="card-title">Sample Title</h3>
+          <p class="card-tags">#nature #landscape</p>
+          
+          <div class="card-comments-section">
+            <ul class="comments-list">
+              <li class="comment-item">
+                <span>Great shot!</span>
+                <button class="btn-icon" data-action="delete-comment" data-comment-id="c1">&times;</button>
+              </li>
+            </ul>
+            <form class="comment-form" data-action="add-comment">
+              <input type="text" placeholder="Add comment..." required />
+              <button type="submit" class="btn btn-small">Send</button>
+            </form>
+          </div>
+
+          <div class="card-actions">
+            <button class="btn btn-small" data-action="edit">Edit</button>
+            <button class="btn btn-danger btn-small" data-action="delete">Delete</button>
+          </div>
+        </div>
+      </article>
+      -->
+        </section>
+
+        <nav class="pagination-container hidden">
+            <button id="prev-page-btn" class="btn btn-secondary" disabled>Previous</button>
+            <span id="page-indicator" class="page-indicator">Page 1 of 1</span>
+            <button id="next-page-btn" class="btn btn-secondary" disabled>Next</button>
+        </nav>
+    </main>
+
+    <div id="modal" class="modal-backdrop hidden">
+        <div class="modal-window">
+            <div class="modal-header">
+                <h2 id="modal-title">Edit Card</h2>
+                <button id="modal-close-btn" class="btn-icon">&times;</button>
+            </div>
+            <form id="card-form" class="modal-form">
+                <input type="hidden" id="card-id-input" value="" />
+
+                <div class="form-group">
+                    <label for="card-title-input">Title</label>
+                    <input type="text" id="card-title-input" required placeholder="Enter title" minlength="3"
+                        maxlength="25" />
+                </div>
+
+                <div class="form-group">
+                    <label for="card-url-input">Image URL</label>
+                    <input type="url" id="card-url-input" required placeholder="https://..." />
+                </div>
+
+                <div class="form-group">
+                    <label for="card-tags-input">Tags (comma separated)</label>
+                    <input type="text" id="card-tags-input" placeholder="nature, mountains, river" maxlength="60" />
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" id="modal-cancel-btn" class="btn btn-secondary">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -54,6 +54,7 @@ const minNumOfEl = +inpPerPage.getAttribute("min");
 const maxNumEl = +inpPerPage.getAttribute("max");
 const minNumPage = +inpNumPage.getAttribute("min");
 const nav = document.querySelector(".btnList");
+const postsP = document.querySelector(".posts-info")
 
 document.querySelectorAll('#hwForm input[type="range"]').forEach(input => {
     const badge = document.createElement('span');
@@ -99,6 +100,8 @@ const updateResult = async (e) => {
         });
 
         resultUl.replaceChildren(fragment);
+        nav.classList.remove("non-visible");
+        postsP.classList.remove("non-visible");
         infoPage.textContent = inpNumPage.value;
         infoNumOfPage.textContent = maxNumEl;
 

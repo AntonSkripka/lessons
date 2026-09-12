@@ -217,13 +217,17 @@
             list-style-type: none;
             padding: 0;
         }
+
+        .non-visible {
+            visibility: hidden;
+        }
     </style>
 </head>
 
 <body>
     <h1>HW-84</h1>
     <a href="./hw-83.html">Previous</a>
-    <a href="./hw-84.html">Next</a>
+    <a href="./project.html">Next</a>
 
     <form id="hwForm">
         <label>Кількість елементів на сторінці: <input id="hwNumPerPage" type="range" min="3" max="20"></label>
@@ -233,8 +237,8 @@
 
     <ul id="data-list"></ul>
 
-    <p class="posts-info">Сторінка № <span class="page">*</span> з <span class="number-of-pages">*</span></p>
-    <ul class="btnList">
+    <p class="posts-info non-visible">Сторінка № <span class="page">*</span> з <span class="number-of-pages">*</span></p>
+    <ul class="btnList non-visible">
         <li>
             <button id="prevBtn">⇐ Prev</button>
         </li>

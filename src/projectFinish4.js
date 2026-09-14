@@ -275,6 +275,16 @@ async function loadAndRenderPage() {
   updatePaginationUI(currentCards.length);
 }
 
+function highlightText(text, query) {
+  const trimmedQuery = query.trim();
+  if (!trimmedQuery) return text;
+
+  const escapedQuery = trimmedQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const regex = new RegExp(`(${escapedQuery})`, 'gi');
+
+  return text.replace(regex, '<mark class="highlight">$1</mark>');
+}
+
 function DOMbuild(cards) {
   if (!cards || cards.length === 0) {
     cardsGrid.innerHTML = '';
@@ -293,6 +303,7 @@ function DOMbuild(cards) {
     `).join('');
 
     const formattedTags = Array.isArray(card.tags) ? card.tags.join(', ') : '';
+    const highlightedTitle = highlightText(card.title, searchQuery);
 
     return `
       <article class="card" data-id="${card.id}">
@@ -305,7 +316,7 @@ function DOMbuild(cards) {
           />
         </div>
         <div class="card-content">
-          <h3 class="card-title">${card.title}</h3>
+          <h3 class="card-title">${highlightedTitle}</h3>
           <p class="card-tags">${formattedTags}</p>
           
           <div class="card-comments-section">

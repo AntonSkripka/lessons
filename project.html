@@ -191,13 +191,29 @@
             width: 100%;
             height: 200px;
             overflow: hidden;
-            background-color: #f0f0f0;
+            background-color: #f1f5f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .card-img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .card-img:hover:not(.img-error) {
+            transform: scale(1.03);
+        }
+
+        .card-img.img-error {
+            cursor: not-allowed;
+            object-fit: contain;
+            padding: 2rem;
+            opacity: 0.6;
         }
 
         .card-content {
@@ -349,8 +365,58 @@
             gap: 0.5rem;
             margin-top: 0.5rem;
         }
+
+        .image-preview-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            padding: 2rem;
+            cursor: pointer;
+        }
+
+        .image-preview-container {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image-preview-img {
+            max-width: 100%;
+            max-height: 85vh;
+            object-fit: contain;
+            border-radius: var(--radius);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            cursor: default;
+        }
+
+        .image-preview-close {
+            position: absolute;
+            top: -2.5rem;
+            right: 0;
+            color: #ffffff;
+            font-size: 2.5rem;
+            line-height: 1;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .image-preview-close:hover {
+            color: var(--danger);
+        }
     </style>
-  <script type="module" crossorigin src="./assets/project-CJPjz4mZ.js"></script>
+  <script type="module" crossorigin src="./assets/project-BawJCSSn.js"></script>
   <link rel="modulepreload" crossorigin href="./assets/modulepreload-polyfill-B5Qt9EMX.js">
 </head>
 
@@ -378,35 +444,6 @@
             "Import from Pixabay"</div>
 
         <section id="cards-grid" class="cards-grid">
-            <!-- 
-      <article class="card" data-id="1">
-        <div class="card-image-wrapper">
-          <img src="..." alt="..." class="card-img" />
-        </div>
-        <div class="card-content">
-          <h3 class="card-title">Sample Title</h3>
-          <p class="card-tags">#nature #landscape</p>
-          
-          <div class="card-comments-section">
-            <ul class="comments-list">
-              <li class="comment-item">
-                <span>Great shot!</span>
-                <button class="btn-icon" data-action="delete-comment" data-comment-id="c1">&times;</button>
-              </li>
-            </ul>
-            <form class="comment-form" data-action="add-comment">
-              <input type="text" placeholder="Add comment..." required />
-              <button type="submit" class="btn btn-small">Send</button>
-            </form>
-          </div>
-
-          <div class="card-actions">
-            <button class="btn btn-small" data-action="edit">Edit</button>
-            <button class="btn btn-danger btn-small" data-action="delete">Delete</button>
-          </div>
-        </div>
-      </article>
-      -->
         </section>
 
         <nav class="pagination-container hidden">
@@ -448,6 +485,14 @@
             </form>
         </div>
     </div>
+
+    <div id="image-preview-modal" class="image-preview-backdrop hidden">
+        <div class="image-preview-container">
+            <button id="image-preview-close-btn" class="image-preview-close">&times;</button>
+            <img id="image-preview-el" src="" alt="" class="image-preview-img" />
+        </div>
+    </div>
+
 </body>
 
 </html>
